@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.board.repository.UserRepository">
+
+    <select id="getSelectUser" parameterType="com.example.board.vo.UserVO" resultType="com.example.board.vo.UserVO">
+        SELECT * FROM board_user where id =#{id} and pw =#{pw};
+    </select>
+
+    <insert id="insertUser" parameterType="com.example.board.vo.UserVO">
+        INSERT INTO board_user (id, name, pw)
+        VALUES (#{id}, #{name}, #{pw})
+    </insert>
+</mapper>
