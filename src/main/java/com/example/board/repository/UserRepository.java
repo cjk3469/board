@@ -10,6 +10,9 @@ import java.util.List;
 @Repository
 @Mapper
 public interface UserRepository {
-    UserVO getSelectUser(UserVO userVO);
+    UserVO loginUser(UserVO userVO);
     void insertUser(UserVO userVO);
+
+    String checkId(String userId);
+    String dbnow();
 }

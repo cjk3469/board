@@ -64,10 +64,10 @@
     <% for (BoardVO boardVO : boardList) { %>
 
     <tr>
-        <td><%= boardVO.getId()%></td>
-        <td><%= boardVO.getTitle() %></td>
+        <td><%= boardVO.getBoardSeq()%></td>
+        <td><%= boardVO.getBoardTitle() %></td>
 <%--        <td><%= boardVO.getContent() %></td>--%>
-        <td><%= boardVO.getUser_id()%></td>
+        <td><%= boardVO.getBoardAuthor()%></td>
     </tr>
   <% } %>
     </tbody>

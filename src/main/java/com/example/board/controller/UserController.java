@@ -6,9 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
@@ -22,6 +20,7 @@ public class UserController {
 
     @GetMapping("/signin")
     public String signInForm() {
+        System.out.printf(userService.dbnow());
         return "signin";
     }
 
@@ -43,10 +42,24 @@ public class UserController {
         return "signup";
     }
 
+    @PostMapping("/checkId")
+    @ResponseBody
+    public String checkId(String userId){
+        String id = "";
+        try{
+            id = userService.checkId(userId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println(id);
+        return id;
+    }
+
     @PostMapping("/signup")
     public String signUp(UserVO userVO, Model model) {
         userService.insertUser(userVO);
         return "signin";
     }
+
 
 }

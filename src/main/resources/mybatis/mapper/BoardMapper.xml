@@ -6,12 +6,12 @@
 <mapper namespace="com.example.board.repository.BoardRepository">
 
     <select id="getBoardList" resultType="com.example.board.vo.BoardVO">
-        SELECT * FROM board_list
+        SELECT * FROM BoardList
     </select>
     <!-- 게시물 등록 -->
     <insert id="insertBoard" parameterType="com.example.board.vo.BoardVO">
-        INSERT INTO board_list
-        VALUES(0,#{user_id},#{title},#{content})
+        INSERT INTO BoardList
+        VALUES(0,#{boardAuthor},#{boardTitle},#{boardContent})
     </insert>
 
 

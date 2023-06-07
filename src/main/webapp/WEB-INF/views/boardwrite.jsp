@@ -53,7 +53,7 @@
     UserVO userVO = (UserVO) session.getAttribute("member");
     String id = "";
     if(userVO != null){
-        id = userVO.getId();
+        id = userVO.getUserId();
     }else{
         id = null;
     }

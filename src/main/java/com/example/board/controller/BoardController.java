@@ -45,13 +45,13 @@ public class BoardController {
         // 세션에서 로그인된 사용자 정보 가져오기
         session = request.getSession();
         UserVO userVO = (UserVO) session.getAttribute("member");
-        String id = userVO.getId();
+        String id = userVO.getUserId();
 
         // BoardVO 객체 생성 및 데이터 설정
         BoardVO boardVO = new BoardVO();
-        boardVO.setUser_id(id);
-        boardVO.setTitle(title);
-        boardVO.setContent(content);
+        boardVO.setBoardAuthor(id);
+        boardVO.setBoardTitle(title);
+        boardVO.setBoardContent(content);
 
         // 게시물 등록
         try {

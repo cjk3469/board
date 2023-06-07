@@ -5,12 +5,20 @@
 
 <mapper namespace="com.example.board.repository.UserRepository">
 
-    <select id="getSelectUser" parameterType="com.example.board.vo.UserVO" resultType="com.example.board.vo.UserVO">
-        SELECT * FROM board_user where id =#{id} and pw =#{pw};
+    <select id="userLogin" parameterType="com.example.board.vo.UserVO" resultType="com.example.board.vo.UserVO">
+        SELECT * FROM BoardUser where userId =#{userId} and pw =#{userPw};
     </select>
 
-    <insert id="insertUser" parameterType="com.example.board.vo.UserVO">
-        INSERT INTO board_user (id, name, pw)
-        VALUES (#{id}, #{name}, #{pw})
+    <insert id="userCreate" parameterType="com.example.board.vo.UserVO">
+        INSERT INTO BoardUser(userId, userPw, userName,userCreateDate)
+        VALUES (#{userId},#{userPw},#{userName},now());
     </insert>
+
+    <select id="checkId" parameterType="String" resultType="String">
+        SELECT userId FROM BoardUser where userId = #{userId};
+    </select>
+
+    <select id="dbnow" resultType="String">
+        select now() from dual;
+    </select>
 </mapper>

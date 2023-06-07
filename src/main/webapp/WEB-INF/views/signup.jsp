@@ -25,19 +25,46 @@
             padding: 10px 20px;
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 <h1>회원가입</h1>
 <form name="signup" method="post" action="signup">
-    <input type="text" placeholder="아이디" name="id" required/>
+    <input type="text" id="inputId" placeholder="아이디" name="userId" required/>
     <br>
-    <input type="text" placeholder="이름" name="name" required/>
+    <input type="text" placeholder="이름" name="userName" required/>
     <br>
-    <input type="password" placeholder="비밀번호" name="pw" required/>
+    <input type="password" placeholder="비밀번호" name="userPw" required/>
     <br>
+    <input type="password" placeholder="비밀번호확인" name="userPw" required/>
     <br>
-    <button type="submit">회원가입</button>
-    <button onclick="location.href='signin'">로그인</button>
 </form>
+<button onclick="checkId()" method="post">아이디 확인</button>
+<script>
+    function checkId() {
+        alert("동작");
+        var inputIdValue = $("#inputId").val();
+        var test = {userId : inputIdValue}
+        $.ajax({
+            type: "POST",
+            url: "/checkId",
+            data: test,
+            success: response => {
+                if (response === inputIdValue) {
+                    alert("사용 가능한 아이디입니다.");
+                } else {
+                    alert("이미 사용 중인 아이디입니다.");
+                    $("#inputId").val(""); // 입력 필드를 공백으로 설정
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("실패");
+                console.error("AJAX 요청 실패:" + error);
+            }
+        });
+    }
+</script>
+<button type="submit">회원가입</button>
+<button onclick="location.href='signin'">로그인</button>
 </body>
 </html>
