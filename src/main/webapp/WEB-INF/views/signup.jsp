@@ -42,7 +42,6 @@
 <button onclick="checkId()" method="post">아이디 확인</button>
 <script>
     function checkId() {
-        alert("동작");
         var inputIdValue = $("#inputId").val();
         var test = {userId : inputIdValue}
         $.ajax({
@@ -52,19 +51,22 @@
             success: response => {
                 if (response === inputIdValue) {
                     alert("사용 가능한 아이디입니다.");
-                } else {
+                }
+                else if(inputIdValue === null || inputIdValue === ""){
+                    alert("아이디를 입력해주세요.");
+                }
+                else {
                     alert("이미 사용 중인 아이디입니다.");
                     $("#inputId").val(""); // 입력 필드를 공백으로 설정
                 }
             },
             error: function (xhr, status, error) {
-                alert("실패");
                 console.error("AJAX 요청 실패:" + error);
             }
         });
     }
 </script>
 <button type="submit">회원가입</button>
-<button onclick="location.href='signin'">로그인</button>
+<button onclick="location.href='signinform'">로그인</button>
 </body>
 </html>

@@ -4,14 +4,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.board.repository.BoardRepository">
-
+    <!-- 게시물 리스트   -->
     <select id="getBoardList" resultType="com.example.board.vo.BoardVO">
-        SELECT * FROM BoardList
+        SELECT *
+        FROM BoardList
+    </select>
+    <!--  게시물 내용  -->
+    <select id="getBoardDetail" resultType="com.example.board.vo.BoardVO">
+        SELECT *
+        FROM BoardList
+        WHERE boardSeq = 3
     </select>
     <!-- 게시물 등록 -->
     <insert id="insertBoard" parameterType="com.example.board.vo.BoardVO">
         INSERT INTO BoardList
-        VALUES(0,#{boardAuthor},#{boardTitle},#{boardContent})
+        VALUES (0, #{boardAuthor}, #{boardTitle}, #{boardContent})
     </insert>
 
 

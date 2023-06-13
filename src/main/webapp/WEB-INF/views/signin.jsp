@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,12 +29,13 @@
 <body>
 <h1>로그인</h1>
 <form name="signin" method="post" action="signin">
-    <input type="text" placeholder="아이디" name="id" required/>
+    <input type="text" placeholder="아이디" name="userId" required/>
     <br>
-    <input type="password" placeholder="비밀번호" name="pw" required/>
+    <input type="password" placeholder="비밀번호" name="userPw" required/>
     <br>
     <button type="submit">로그인</button>
-    <button onclick="location.href='signup'">회원가입</button>
+
 </form>
+<button onclick="location.href='signupform'">회원가입</button>
 </body>
 </html>

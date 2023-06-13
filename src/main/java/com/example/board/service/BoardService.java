@@ -30,8 +30,19 @@ public class BoardService {
         return boardList;
     }
 
+    public BoardVO getBoardDetail(){
+        BoardVO boardVO = new BoardVO();
+        boardVO = boardRepository.getBoardDetail();
+        System.out.println(boardVO);
+        System.out.println(boardVO.getBoardAuthor());
+
+
+        return boardVO;
+    }
+
     public void insertBoard(BoardVO boardVO) {
         boardRepository.insertBoard(boardVO);
     }
+
 
 }

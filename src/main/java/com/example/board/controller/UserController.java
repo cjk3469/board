@@ -18,18 +18,18 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/signin")
+    @GetMapping("/signinform")
     public String signInForm() {
-        System.out.printf(userService.dbnow());
         return "signin";
     }
 
     @PostMapping("/signin")
     public String signIn(UserVO userVO, HttpSession session, Model model) {
-        UserVO loggedInUser = userService.getSelectUser(userVO);
+        System.out.println(userVO.getUserId());
+        UserVO loggedInUser = userService.userLogin(userVO);
         if (loggedInUser != null) {
             session.setAttribute("member", loggedInUser);
-            model.addAttribute("test" , loggedInUser);
+            model.addAttribute("test", loggedInUser);
             return "redirect:/boardlist";
         } else {
             model.addAttribute("error", "Invalid credentials");
@@ -37,18 +37,18 @@ public class UserController {
         }
     }
 
-    @GetMapping("/signup")
+    @GetMapping("/signupform")
     public String signUpForm() {
         return "signup";
     }
 
     @PostMapping("/checkId")
     @ResponseBody
-    public String checkId(String userId){
+    public String checkId(String userId) {
         String id = "";
-        try{
+        try {
             id = userService.checkId(userId);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println(id);
@@ -60,6 +60,5 @@ public class UserController {
         userService.insertUser(userVO);
         return "signin";
     }
-
 
 }

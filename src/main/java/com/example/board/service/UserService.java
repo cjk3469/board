@@ -17,8 +17,8 @@ public class UserService {
     }
 
     //로그인
-    public UserVO getSelectUser(UserVO userVO){
-        return userRepository.loginUser(userVO);
+    public UserVO userLogin(UserVO userVO){
+        return userRepository.userLogin(userVO);
     };
 
     //회원가입
@@ -31,7 +31,7 @@ public class UserService {
         return userRepository.checkId(userId);
     }
 
-    public String dbnow(){
-        return userRepository.dbnow();
-    }
+//    public String dbnow(){
+//        return userRepository.dbnow();
+//    }
 }

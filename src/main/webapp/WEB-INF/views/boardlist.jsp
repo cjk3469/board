@@ -2,7 +2,6 @@
 <%@ page import="com.example.board.vo.BoardVO" %>
 <%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,12 +38,6 @@
 </head>
 <body>
 <h1>게시물 목록</h1>
-<%--<% UserVO userVO = (UserVO) session.getAttribute("member"); %>--%>
-<%--<%String test = userVO.getId();%>--%>
-<%--<% if (userVO != null) { %>--%>
-<%--<p>로그인된 아이디: <%= userVO.getId() %></p>--%>
-<%--<% } %>--%>
-<%--<% session.setAttribute("user",test); %>--%>
 
 
 <%
@@ -58,16 +51,17 @@
         <th>번호</th>
         <th>제목</th>
         <th>작성자</th>
+        <th>작성 일자</th>
     </tr>
     </thead>
     <tbody>
     <% for (BoardVO boardVO : boardList) { %>
 
-    <tr>
+    <tr onclick="location.href='boarddetail?boardSeq=<%= boardVO.getBoardSeq() %>'">
         <td><%= boardVO.getBoardSeq()%></td>
         <td><%= boardVO.getBoardTitle() %></td>
-<%--        <td><%= boardVO.getContent() %></td>--%>
         <td><%= boardVO.getBoardAuthor()%></td>
+        <td><%= boardVO.getBoardCreateDate()%></td>
     </tr>
   <% } %>
     </tbody>

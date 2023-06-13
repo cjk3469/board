@@ -32,16 +32,27 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @GetMapping("/boardwrite")
-    public String writeForm(Model model){
+    @GetMapping("/boardwriteform")
+    public String boardWriteForm(Model model) {
 //        model.getAttribute("user",)
 //        session = request.getSession();
 //        UserVO userVO = (UserVO) session.getAttribute("member");
         return "boardwrite";
     }
 
+    @GetMapping("/boarddetail")
+    public String boardDetail(@RequestParam(value="boardSeq")int boardSeq,Model model){
+        BoardVO boardVO = boardService.getBoardDetail();
+        model.addAttribute("boardVO", boardVO);
+
+        System.out.println(boardSeq);
+        return "boarddetail";
+    }
+
+
     @PostMapping("/boardwrite")
     public String write(HttpSession session, HttpServletRequest request, @RequestParam("title") String title, @RequestParam("content") String content) {
+
         // 세션에서 로그인된 사용자 정보 가져오기
         session = request.getSession();
         UserVO userVO = (UserVO) session.getAttribute("member");
@@ -56,7 +67,7 @@ public class BoardController {
         // 게시물 등록
         try {
             boardService.insertBoard(boardVO);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -69,18 +80,16 @@ public class BoardController {
 
         // 게시물 리스트 조회
         List<BoardVO> boardList = new ArrayList<>();
-        try{
-            boardList =  boardService.getBoardList();
-        }catch (Exception e){
+        try {
+            boardList = boardService.getBoardList();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        if(boardList != null && !boardList.isEmpty()){
-//            for(BoardVO vo : boardList){
-//                System.out.println(vo.getId());
-//                System.out.println(vo.getUser_id());
-//            }
+        if (boardList != null && !boardList.isEmpty()) {
+
             // 모델에 게시물 리스트 추가
             model.addAttribute("boardList", boardList);
+
         }
         return "boardlist";
     }
