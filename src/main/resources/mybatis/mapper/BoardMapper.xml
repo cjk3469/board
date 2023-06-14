@@ -13,12 +13,12 @@
     <select id="getBoardDetail" resultType="com.example.board.vo.BoardVO">
         SELECT *
         FROM BoardList
-        WHERE boardSeq = 3
+        WHERE boardSeq = #{boardSeq}
     </select>
     <!-- 게시물 등록 -->
     <insert id="insertBoard" parameterType="com.example.board.vo.BoardVO">
-        INSERT INTO BoardList
-        VALUES (0, #{boardAuthor}, #{boardTitle}, #{boardContent})
+        INSERT INTO BoardList(boardAuthor,boardTitle,boardContent,boardCreateDate)
+        VALUES (#{boardAuthor}, #{boardTitle}, #{boardContent},now())
     </insert>
 
 

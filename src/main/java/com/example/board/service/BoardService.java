@@ -33,10 +33,6 @@ public class BoardService {
     public BoardVO getBoardDetail(){
         BoardVO boardVO = new BoardVO();
         boardVO = boardRepository.getBoardDetail();
-        System.out.println(boardVO);
-        System.out.println(boardVO.getBoardAuthor());
-
-
         return boardVO;
     }
 

@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,26 +30,23 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @GetMapping("/boardwriteform")
+    @RequestMapping(value = "/boardwrite",method = RequestMethod.GET)
     public String boardWriteForm(Model model) {
-//        model.getAttribute("user",)
-//        session = request.getSession();
-//        UserVO userVO = (UserVO) session.getAttribute("member");
+
         return "boardwrite";
     }
 
     @GetMapping("/boarddetail")
     public String boardDetail(@RequestParam(value="boardSeq")int boardSeq,Model model){
         BoardVO boardVO = boardService.getBoardDetail();
-        model.addAttribute("boardVO", boardVO);
-
         System.out.println(boardSeq);
+        model.addAttribute("boardVO", boardVO);
         return "boarddetail";
     }
 
 
-    @PostMapping("/boardwrite")
-    public String write(HttpSession session, HttpServletRequest request, @RequestParam("title") String title, @RequestParam("content") String content) {
+    @RequestMapping (value = "/boardwrite",method = RequestMethod.POST)
+    public String boardWrite(HttpSession session, HttpServletRequest request, @RequestParam("title") String title, @RequestParam("content") String content) {
 
         // 세션에서 로그인된 사용자 정보 가져오기
         session = request.getSession();
@@ -59,20 +54,22 @@ public class BoardController {
         String id = userVO.getUserId();
 
         // BoardVO 객체 생성 및 데이터 설정
-        BoardVO boardVO = new BoardVO();
-        boardVO.setBoardAuthor(id);
-        boardVO.setBoardTitle(title);
-        boardVO.setBoardContent(content);
-
-        // 게시물 등록
-        try {
-            boardService.insertBoard(boardVO);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if(id != null || !id.isEmpty()){
+            BoardVO boardVO = new BoardVO();
+            boardVO.setBoardAuthor(id);
+            boardVO.setBoardTitle(title);
+            boardVO.setBoardContent(content);
+            // 게시물 등록
+            try {
+                boardService.insertBoard(boardVO);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "redirect:/boardlist";
+        }else{
+            return "redirect:/signin";
         }
 
-
-        return "redirect:/boardlist";
     }
 
     @GetMapping("/boardlist")
