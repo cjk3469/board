@@ -38,8 +38,7 @@ public class BoardController {
 
     @GetMapping("/boarddetail")
     public String boardDetail(@RequestParam(value="boardSeq")int boardSeq,Model model){
-        BoardVO boardVO = boardService.getBoardDetail();
-        System.out.println(boardSeq);
+        BoardVO boardVO = boardService.getBoardDetail(boardSeq);
         model.addAttribute("boardVO", boardVO);
         return "boarddetail";
     }

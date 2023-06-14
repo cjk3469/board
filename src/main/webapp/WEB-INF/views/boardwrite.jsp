@@ -64,7 +64,7 @@
 %>
       <script>
           alert("로그인이 필요합니다.");
-          location.href="signinform";
+          location.href="signin";
       </script>
 <%
     }
@@ -80,7 +80,7 @@
     </div>
     <br>
     <button type="submit">작성</button>
-    <button onclick=location.href="boardlist">취소</button>
+    <button type="button" onclick=location.href="boardlist">취소</button>
 </form>
 </body>
 </html>

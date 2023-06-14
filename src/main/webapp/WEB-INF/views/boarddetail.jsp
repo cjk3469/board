@@ -6,7 +6,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>게시물 상세</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
         h1 {
             text-align: center;
@@ -31,46 +33,43 @@
             background-color: #f5f5f5;
         }
 
-        button {
+        .btn-custom {
             padding: 10px 20px;
         }
     </style>
 </head>
 <body>
-<h1></h1>
+<div class="container">
+    <h1>게시물 상세</h1>
 
+    <% BoardVO boardVO = (BoardVO) request.getAttribute("boardVO"); %>
 
-<%
-    BoardVO boardVO = (BoardVO) request.getAttribute("boardVO");
-%>
+    <!-- 게시글 정보 출력 -->
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>제목</th>
+            <td><%= boardVO.getBoardTitle() %></td>
+        </tr>
+        <tr>
+            <th>내용</th>
+            <td><%= boardVO.getBoardContent() %></td>
+        </tr>
+        <tr>
+            <th>작성자</th>
+            <td><%= boardVO.getBoardAuthor() %></td>
+        </tr>
+        <tr>
+            <th>작성 일자</th>
+            <td><%= boardVO.getBoardCreateDate() %></td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <button class="btn btn-primary btn-custom" onclick="location.href='boardlist'">목록</button>
+</div>
 
-<!-- 게시글 리스트 출력 -->
-<table>
-    <thead>
-    <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>내용</th>
-        <th>작성자</th>
-        <th>작성 일자</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td><%= boardVO.getBoardSeq()%>
-        </td>
-        <td><%= boardVO.getBoardTitle() %>
-        </td>
-        <td><%= boardVO.getBoardContent() %>
-        </td>
-        <td><%= boardVO.getBoardAuthor()%>
-        </td>
-        <td><%= boardVO.getBoardCreateDate()%>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<br>
-<button onclick="location.href='boardlist'">목록</button>
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

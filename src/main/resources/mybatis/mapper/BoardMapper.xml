@@ -8,6 +8,7 @@
     <select id="getBoardList" resultType="com.example.board.vo.BoardVO">
         SELECT *
         FROM BoardList
+        ORDER BY boardSeq DESC
     </select>
     <!--  게시물 내용  -->
     <select id="getBoardDetail" resultType="com.example.board.vo.BoardVO">

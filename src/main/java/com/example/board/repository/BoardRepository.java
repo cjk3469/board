@@ -16,7 +16,7 @@ public interface BoardRepository {
 
     List<BoardVO> getBoardList();
 
-    BoardVO getBoardDetail();
+    BoardVO getBoardDetail(int boardSeq);
 
 
 }

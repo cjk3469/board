@@ -7,6 +7,8 @@
 <head>
     <meta charset="UTF-8">
     <title>게시물 목록</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
         h1 {
             text-align: center;
@@ -31,46 +33,81 @@
             background-color: #f5f5f5;
         }
 
-        button {
+        .btn-custom {
             padding: 10px 20px;
         }
     </style>
 </head>
 <body>
-<h1>게시물 목록</h1>
+<div class="container">
+    <h1>게시물 목록</h1>
 
+    <% List<BoardVO> boardList = (List<BoardVO>) request.getAttribute("boardList"); %>
+    <% UserVO user = (UserVO) session.getAttribute("member"); %>
 
-<%
-    List<BoardVO> boardList = (List<BoardVO>) request.getAttribute("boardList");
-%>
+    <div class="text-end">
+        <% if(user != null){ %>
+        <h2><%= user.getUserId() %></h2>
+        <button class="btn btn-primary btn-custom" onclick="location.href='logout'">로그아웃</button>
+        <% } else { %>
+        <button class="btn btn-primary btn-custom" onclick="location.href='signin'">로그인</button>
+        <% } %>
+    </div>
 
-<!-- 게시글 리스트 출력 -->
-<table>
-    <thead>
-    <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성 일자</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% for (BoardVO boardVO : boardList) { %>
+    <!-- 게시글 리스트 출력 -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성 일자</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% int pageSize = 10;
+            int currentPage = 1;
+            String currentPageParam = request.getParameter("page");
+            if (currentPageParam != null) {
+                currentPage = Integer.parseInt(currentPageParam);
+            }
+            int startIdx = (currentPage - 1) * pageSize;
+            int endIdx = Math.min(startIdx + pageSize, boardList.size());
 
-    <tr onclick="location.href='boarddetail?boardSeq=<%= boardVO.getBoardSeq() %>'">
-        <td><%= boardVO.getBoardSeq()%>
-        </td>
-        <td><%= boardVO.getBoardTitle() %>
-        </td>
-        <td><%= boardVO.getBoardAuthor()%>
-        </td>
-        <td><%= boardVO.getBoardCreateDate()%>
-        </td>
-    </tr>
-    <% } %>
-    </tbody>
-</table>
-<br>
-<button onclick="location.href='boardwrite'">게시물 작성</button>
+            for (int i = startIdx; i < endIdx; i++) {
+                BoardVO boardVO = boardList.get(i);
+        %>
+        <tr name="boardSeq" onclick="location.href='boarddetail?boardSeq=<%= boardVO.getBoardSeq() %>'">
+            <td><%= boardVO.getBoardSeq() %></td>
+            <td><%= boardVO.getBoardTitle() %></td>
+            <td><%= boardVO.getBoardAuthor() %></td>
+            <td><%= boardVO.getBoardCreateDate() %></td>
+        </tr>
+        <% } %>
+        </tbody>
+    </table>
+    <br>
+    <nav aria-label="게시물 목록 페이지">
+        <ul class="pagination justify-content-center">
+            <% int pageCount = (int) Math.ceil((double) boardList.size() / pageSize);
+                for (int i = 1; i <= pageCount; i++) {
+                    if (i == currentPage) { %>
+            <li class="page-item active" aria-current="page">
+                <span class="page-link"><%= i %></span>
+            </li>
+            <% } else { %>
+            <li class="page-item">
+                <a class="page-link" href="boardlist?page=<%= i %>"><%= i %></a>
+            </li>
+            <% }
+            } %>
+        </ul>
+    </nav>
+    <br>
+    <button class="btn btn-primary btn-custom" onclick="location.href='boardwrite'">게시물 작성</button>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

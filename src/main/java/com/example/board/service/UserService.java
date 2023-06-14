@@ -27,7 +27,7 @@ public class UserService {
     }
 
     //아이디 중복확인
-    public String checkId(String userId){
+    public int checkId(String userId){
         return userRepository.checkId(userId);
     }
 

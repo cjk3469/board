@@ -13,5 +13,5 @@ public interface UserRepository {
     UserVO userLogin(UserVO userVO);
     void insertUser(UserVO userVO);
 
-    String checkId(String userId);
+    int checkId(String userId);
 }

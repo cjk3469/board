@@ -18,14 +18,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/signinform")
+    @RequestMapping(value = "/signin",method = RequestMethod.GET)
     public String signInForm() {
         return "signin";
     }
 
-    @PostMapping("/signin")
+    @RequestMapping(value = "/signin",method = RequestMethod.POST)
     public String signIn(UserVO userVO, HttpSession session, Model model) {
-        System.out.println(userVO.getUserId());
         UserVO loggedInUser = userService.userLogin(userVO);
         if (loggedInUser != null) {
             session.setAttribute("member", loggedInUser);
@@ -37,22 +36,16 @@ public class UserController {
         }
     }
 
-    @GetMapping("/signupform")
-    public String signUpForm() {
-        return "signup";
+    //로그아웃
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 
-    @PostMapping("/checkId")
-    @ResponseBody
-    public String checkId(String userId) {
-        String id = "";
-        try {
-            id = userService.checkId(userId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println(id);
-        return id;
+    @RequestMapping (value = "/signup",method=RequestMethod.GET)
+    public String signUpForm() {
+        return "signup";
     }
 
     @PostMapping("/signup")
@@ -60,5 +53,19 @@ public class UserController {
         userService.insertUser(userVO);
         return "signin";
     }
+
+    @RequestMapping(value = "/checkId", method = RequestMethod.POST)
+    @ResponseBody
+    public int checkId(String userId) {
+        int result = 0;
+        System.out.println(userId);
+        try {
+            result = userService.checkId(userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 
 }

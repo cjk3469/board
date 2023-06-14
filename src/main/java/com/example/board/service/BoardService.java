@@ -30,9 +30,9 @@ public class BoardService {
         return boardList;
     }
 
-    public BoardVO getBoardDetail(){
+    public BoardVO getBoardDetail(int boardSeq){
         BoardVO boardVO = new BoardVO();
-        boardVO = boardRepository.getBoardDetail();
+        boardVO = boardRepository.getBoardDetail(boardSeq);
         return boardVO;
     }
 
