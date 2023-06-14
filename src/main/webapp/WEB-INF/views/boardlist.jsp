@@ -1,7 +1,7 @@
 <%@ page import="com.example.board.vo.UserVO" %>
 <%@ page import="com.example.board.vo.BoardVO" %>
 <%@ page import="java.util.List" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,12 +58,16 @@
     <% for (BoardVO boardVO : boardList) { %>
 
     <tr onclick="location.href='boarddetail?boardSeq=<%= boardVO.getBoardSeq() %>'">
-        <td><%= boardVO.getBoardSeq()%></td>
-        <td><%= boardVO.getBoardTitle() %></td>
-        <td><%= boardVO.getBoardAuthor()%></td>
-        <td><%= boardVO.getBoardCreateDate()%></td>
+        <td><%= boardVO.getBoardSeq()%>
+        </td>
+        <td><%= boardVO.getBoardTitle() %>
+        </td>
+        <td><%= boardVO.getBoardAuthor()%>
+        </td>
+        <td><%= boardVO.getBoardCreateDate()%>
+        </td>
     </tr>
-  <% } %>
+    <% } %>
     </tbody>
 </table>
 <br>
